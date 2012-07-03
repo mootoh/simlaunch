@@ -20,9 +20,10 @@ INVALID_DEVICE_FAMILY=4
 SOURCE_APP_INVALID=4
 DESTINATION_WRITE_FAILED=5
 
+
 # Print Usage
 print_usage () {
-    echo "Usage: $0 [--help] [--source-app <app>] [--template-app <launcher>] [--device-family <family>]"
+    echo "Usage: $0 [--help] [--source-app <app>] [--template-app <launcher>] [--device-family <family>] [--dest-app <finalAppName>"
     echo "Supported device families:"
     echo "\tiPhone"
     echo "\tiPad"
@@ -77,9 +78,10 @@ parse_plist () {
 
 # Find a unique destination path
 compute_dest_path () {
-	local dest="`dirname "${APP}"`/${APP_NAME} (iPhone Simulator)"
-	local suffix=""
 
+	local suffix=""
+	if [ -z "${DEST_APP}" ]; then
+	local dest="`dirname "${APP}"`/${APP_NAME} (iPhone Simulator)"
 	# Find a unique name
 	while [ -e "${dest}${suffix}.app" ]; do
 		if [ -z ${suffix} ]; then
@@ -88,9 +90,11 @@ compute_dest_path () {
 			suffix=" `expr ${suffix} + 1`"
 		fi
 	done
-
 	# Found it
 	APP_DEST="${dest}${suffix}.app"
+    else
+	APP_DEST="`dirname "${APP}"`/${DEST_APP}.app"
+    fi
 }
 
 # Populate the destination
@@ -176,6 +180,11 @@ while [ $# -gt 0 ]; do
     --device-family)
         shift
         DEVICE_FAMILY="$1"
+        shift
+        ;;
+    --dest-app)
+        shift
+        DEST_APP="$1"
         shift
         ;;
     --help)
