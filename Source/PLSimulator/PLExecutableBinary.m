@@ -36,6 +36,9 @@
 #import <mach-o/loader.h>
 #import <mach-o/fat.h>
 
+// since Snow Leopard does not have strnlen...
+#include "my_strnlen.h"
+
 /**
  * @internal
  *
@@ -213,7 +216,7 @@ static uint32_t macho_nswap32(uint32_t input) {
                     [self release];
                     return nil;
                 }
-                
+
                 NSString *path = [[[NSString alloc] initWithBytes: pathptr
                                                            length: strnlen(pathptr, pathlen)
                                                          encoding: NSUTF8StringEncoding] autorelease];

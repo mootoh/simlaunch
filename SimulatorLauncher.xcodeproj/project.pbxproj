@@ -90,6 +90,7 @@
 		05CC964611292469001912D5 /* BundlerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CC964511292469001912D5 /* BundlerTool.m */; };
 		05CC968611292F19001912D5 /* bundle-tool.sh in Copy Executables */ = {isa = PBXBuildFile; fileRef = 05CC967F11292EFE001912D5 /* bundle-tool.sh */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		92617E9B15AC31BC001B22BD /* my_strnlen.c in Sources */ = {isa = PBXBuildFile; fileRef = 92617E9A15AC31BC001B22BD /* my_strnlen.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -286,6 +287,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107320486CEB800E47090 /* Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Launcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92617E9A15AC31BC001B22BD /* my_strnlen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = my_strnlen.c; sourceTree = "<group>"; };
+		92617E9C15AC31E5001B22BD /* my_strnlen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = my_strnlen.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +347,8 @@
 				0519EF7C1540779200AD2B48 /* PLExecutableBinaryTests.m */,
 				0519EF851540817600AD2B48 /* PLMachO.h */,
 				0519EF86154081A000AD2B48 /* PLMachO.m */,
+				92617E9A15AC31BC001B22BD /* my_strnlen.c */,
+				92617E9C15AC31E5001B22BD /* my_strnlen.h */,
 			);
 			name = "Bundle Loader";
 			sourceTree = "<group>";
@@ -846,6 +851,7 @@
 				0519EF7A154075FB00AD2B48 /* PLExecutableBinary.m in Sources */,
 				0519EF8115407BAE00AD2B48 /* PLUniversalBinary.m in Sources */,
 				0519EF87154081A000AD2B48 /* PLMachO.m in Sources */,
+				92617E9B15AC31BC001B22BD /* my_strnlen.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1172,6 +1178,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = "Simulator Bundler";
+				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -1197,6 +1204,7 @@
 					AppKit,
 				);
 				PRODUCT_NAME = "Simulator Bundler";
+				SDKROOT = macosx10.6;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1267,7 +1275,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				TEST_AFTER_BUILD = YES;
 				WARNING_CFLAGS = (
 					"-Wall",
@@ -1290,7 +1298,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 				TEST_AFTER_BUILD = YES;
 				WARNING_CFLAGS = (
 					"-Wall",
