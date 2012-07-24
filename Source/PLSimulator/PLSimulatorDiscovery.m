@@ -204,7 +204,11 @@ static NSInteger platform_compare_by_version (id obj1, id obj2, void *context) {
         BOOL hasMinVersion = NO;
         BOOL hasDeviceFamily = NO;
         BOOL hasExpectedSDK = NO;
-
+        
+        NSLog(@"version = %@", _version);
+        NSLog(@"_canonicalSDKName = %@", _canonicalSDKName);
+        NSLog(@"_deviceFamilies = %@", _deviceFamilies);
+        
         /* Skip filters that are not required */
         if (_version == nil)
             hasMinVersion = YES;
@@ -213,6 +217,9 @@ static NSInteger platform_compare_by_version (id obj1, id obj2, void *context) {
             hasExpectedSDK = YES;
 
         for (PLSimulatorSDK *sdk in platform.sdks) {
+            
+            NSLog(@"sdk.canonicalName = %@", sdk.canonicalName);
+            
             /* If greater than or equal to the minimum version, this platform SDK meets the requirements */
             if (_version != nil && rpm_vercomp([sdk.version UTF8String], [_version UTF8String]) >= 0)
                 hasMinVersion = YES;
@@ -224,17 +231,18 @@ static NSInteger platform_compare_by_version (id obj1, id obj2, void *context) {
             /* If any our requested families are included, this platform SDK meets the requirements. */
             for (NSString *family in _deviceFamilies) {
                 if ([sdk.deviceFamilies containsObject: family]) {
+                    NSLog(@"family = %@", family);
                     hasDeviceFamily = YES;
                     continue;
                 }
             }
         }
 
-        if (!hasMinVersion || !hasDeviceFamily || !hasExpectedSDK) {
-            NSLog(@"Skipping platform discovery result '%@', does not match requirements (mv=%hhu, df=%hhu, es=%hhu)", path, hasMinVersion, hasDeviceFamily, hasExpectedSDK);
+        if (!hasMinVersion || !hasDeviceFamily) {
+            NSLog(@"Skipping platform discovery result '%@', does not match requirements (mv=%hhu, df=%hhu)", path, hasMinVersion, hasDeviceFamily);
             continue;
         }
-
+        
         [platformSDKs addObject: platform];
     }
 
