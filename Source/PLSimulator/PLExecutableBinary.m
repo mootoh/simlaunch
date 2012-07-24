@@ -293,35 +293,8 @@ static uint32_t macho_nswap32(uint32_t input) {
                 [result addObject: component];
             }
         }
-
-        /* Strip out '..' paths. These are used to reference paths above the image path. */
-        pathComponents = result;
-        result = [NSMutableArray arrayWithCapacity: [pathComponents count]];
-        while ([pathComponents count] > 0) {
-            /* Pop the first component */
-            NSString *top = [pathComponents objectAtIndex: 0];
-            [pathComponents removeObjectAtIndex: 0];
-
-            if ([top isEqualToString: @".."]) {
-                /* Handle backtracking (assuming there is data to backtrack) */
-                if ([result count] < 2)
-                    continue;
-                
-                [result removeLastObject];
-                [result removeLastObject];
-
-            } else if ([top isEqualToString: @"."]) {
-                /* Skip empty nodes */
-                
-            } else {
-                /* Otherwise, add standard paths to the target */
-                [result addObject: top];
-            }
-        }
-
-        [absolutePaths addObject: [NSString pathWithComponents: result]];
+        [absolutePaths addObject:[[NSString pathWithComponents:result] stringByStandardizingPath]];
     }
-    
     return absolutePaths;
 }
 
