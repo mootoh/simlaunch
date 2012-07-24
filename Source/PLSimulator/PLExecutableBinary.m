@@ -36,16 +36,13 @@
 #import <mach-o/loader.h>
 #import <mach-o/fat.h>
 
-// Since Snow Leopard does not have strnlen, naive implementation was added.
-#ifndef MAC_OS_X_VERSION_10_7
-size_t strnlen(register const char *s, size_t maxlen)
+size_t strnlen_naive(register const char *s, size_t maxlen)
 {
     for (size_t i=0; i<maxlen; i++)
         if (*s == '\0')
             return i;
     return maxlen;
 }
-#endif // MAC_OS_X_VERSION_10_7
 
 /**
  * @internal
@@ -226,7 +223,7 @@ static uint32_t macho_nswap32(uint32_t input) {
                 }
                 
                 NSString *path = [[[NSString alloc] initWithBytes: pathptr
-                                                           length: strnlen(pathptr, pathlen)
+                                                           length: strnlen_naive(pathptr, pathlen)
                                                          encoding: NSUTF8StringEncoding] autorelease];
                 [rpaths addObject: path];
                 break;
@@ -253,7 +250,7 @@ static uint32_t macho_nswap32(uint32_t input) {
                 }
                 
                 NSString *name = [[[NSString alloc] initWithBytes: nameptr
-                                                           length: strnlen(nameptr, namelen)
+                                                           length: strnlen_naive(nameptr, namelen)
                                                          encoding: NSUTF8StringEncoding] autorelease];
                 [dylibs addObject: name];
 
