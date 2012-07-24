@@ -309,6 +309,12 @@
                 }
             }
 
+            NSRange dotdot = [dylib rangeOfString:@".."];
+            if (dotdot.location != NSNotFound) {
+                NSLog(@"Something bad happens in resolving '..' relative path. Ignore it");
+                continue;
+            }
+
             /* Load the target */
             PLUniversalBinary *linkTarget = [PLUniversalBinary binaryWithPath: dylib error: outError];
             if (linkTarget == nil)
