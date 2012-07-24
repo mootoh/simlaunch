@@ -238,6 +238,12 @@ static NSInteger platform_compare_by_version (id obj1, id obj2, void *context) {
             }
         }
 
+        if (hasExpectedSDK) {
+            [platformSDKs removeAllObjects];
+            [platformSDKs addObject:platform];
+            break;
+        }
+
         if (!hasMinVersion || !hasDeviceFamily) {
             NSLog(@"Skipping platform discovery result '%@', does not match requirements (mv=%hhu, df=%hhu)", path, hasMinVersion, hasDeviceFamily);
             continue;
